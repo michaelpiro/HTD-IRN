@@ -71,7 +71,7 @@ def calculate_loss(RX, X, F, t_tensor, t_proj, S, eta1):
 def data_preprocessing(modelConfig):
     ## loading data
     mat = sio.loadmat(modelConfig['dataset'])
-    hs = mat['data']
+    hs = mat['training_data']
     gt = mat['map']
 
     ## pre-processing
