@@ -159,12 +159,16 @@ def test(modelConfig: Dict):
 
     detection_map = standard(detection_map)
     detection_map = np.clip(detection_map, 0, 1)
+    # save the detection map
+    sio.savemat(f'detection_map_{modelConfig['dataset']}.mat', {'detection_map': detection_map})
 
     y_l = np.reshape(gt, [-1, 1], order='F')
     y_p = np.reshape(detection_map, [-1, 1], order='F')
 
     ## calculate the AUC value
     fpr, tpr, threshold = metrics.roc_curve(y_l, y_p, drop_intermediate=False)
+    # save the ROC curve data
+    sio.savemat(f'roc_curve_{modelConfig['dataset']}', {'fpr': fpr, 'tpr': tpr, 'threshold': threshold})
     fpr = fpr[1:]
     tpr = tpr[1:]
     threshold = threshold[1:]
